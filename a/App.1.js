@@ -11,11 +11,10 @@ class App extends Component {
 
   moveFocus(delta, focusedIndex) {
     const arrowNavigations = Array.from(document.querySelectorAll('.arrow-navigation'))
-    const activeElementParent = document.activeElement.parentNode
-    const activeIndex = arrowNavigations.indexOf(activeElementParent)
+    const activeElement = document.activeElement
+    const activeIndex = arrowNavigations.indexOf(activeElement)
     if (arrowNavigations[activeIndex + delta]) {
-      const elementToFocus = arrowNavigations[activeIndex + delta].childNodes[focusedIndex] || arrowNavigations[activeIndex + delta].lastChild
-      elementToFocus.focus()
+      arrowNavigations[activeIndex + delta].focus()
       this.setState({
         previouslyFocusedIndex: focusedIndex
       })
@@ -23,23 +22,27 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Array.from(Array.from(document.querySelectorAll('.arrow-navigation'))[0].childNodes)[0].focus()
+    Array.from(document.querySelectorAll('.arrow-navigation'))[0].focus()
   }
 
   render() {
     return (
       <div className="App">
-        <div className="grid">
+        <div className="header">
           <ArrowNavigation onMoveFocus={this.moveFocus.bind(this)} previouslyFocusedIndex={this.state.previouslyFocusedIndex}>
             <span>Browse</span>
             <span>Search</span>
             <span>Profile</span>
           </ArrowNavigation>
+        </div>
+        <div className="header">
           <ArrowNavigation onMoveFocus={this.moveFocus.bind(this)} previouslyFocusedIndex={this.state.previouslyFocusedIndex}>
             <span>Browse 2</span>
             <span>Search 2</span>
             <span>Profile 2</span>
           </ArrowNavigation>
+        </div>
+        <div className="header">
           <ArrowNavigation onMoveFocus={this.moveFocus.bind(this)} previouslyFocusedIndex={this.state.previouslyFocusedIndex}>
             <span>Browse 3</span>
             <span>Search 3</span>
